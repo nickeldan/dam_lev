@@ -81,3 +81,7 @@ def test_deletion_then_substitution() -> None:
 
 def test_deletion_then_insertion() -> None:
     assert dam_lev.get_changes("abc", "bcd") == [dam_lev.Deletion(at=0), dam_lev.Insertion(at=3, at2=2)]
+
+
+def test_with_key() -> None:
+    assert dam_lev.get_changes("aBc", "AbC", key=str.upper) == []
