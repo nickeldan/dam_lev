@@ -44,13 +44,8 @@ class Scorer:
 
 
 def get_changes(
-    seq1: typing.Sequence, seq2: typing.Sequence, key: typing.Optional[typing.Callable] = None
+    seq1: typing.Sequence, seq2: typing.Sequence, key: typing.Callable = lambda x: x
 ) -> typing.List[Mutation]:
-    if key is None:
-        key = lambda x: x
-    else:
-        key = functools.lru_cache(key)
-
     @functools.lru_cache(maxsize=None)
     def chain(i: int, j: int) -> typing.List[Mutation]:
         if i < 0 and j < 0:
@@ -58,7 +53,6 @@ def get_changes(
 
         scorer = Scorer()
 
-        assert key is not None  # mypy issue 2608
         spots_differ = i < 0 or j < 0 or key(seq1[i]) != key(seq2[j])
 
         if i >= 1 and j >= 1 and key(seq1[i]) == key(seq2[j - 1]) and key(seq1[i - 1]) == key(seq2[j]):
