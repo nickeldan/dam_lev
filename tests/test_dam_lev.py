@@ -85,3 +85,11 @@ def test_deletion_then_insertion() -> None:
 
 def test_with_key() -> None:
     assert dam_lev.get_changes("aBc", "AbC", key=str.upper) == []
+
+
+def test_different_types() -> None:
+    assert dam_lev.get_changes("abc", ["a", "b"]) == [dam_lev.Deletion(at=2)]
+
+
+def test_nonhashable_elements() -> None:
+    assert dam_lev.get_changes([[1, 2], [3, 4]], [[1], [3, 4]]) == [dam_lev.Substitution(at=0, at2=0)]
