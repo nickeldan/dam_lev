@@ -3,6 +3,5 @@ requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.black]
-target-version = ['py37']
+target-version = ['py38']
 line-length = 110
-preview = true
