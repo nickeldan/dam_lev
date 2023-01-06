@@ -3,7 +3,7 @@ import functools
 import typing
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass(repr=False)
 class Mutation:
     at: int
     at2: int = -1
@@ -53,9 +53,14 @@ def get_changes(
 
         scorer = Scorer()
 
-        spots_differ = i < 0 or j < 0 or key(seq1[i]) != key(seq2[j])
+        if i >= 0 and j >= 0:
+            spot1 = key(seq1[i])
+            spot2 = key(seq2[j])
+            spots_differ = spot1 != spot2
+        else:
+            spots_differ = True
 
-        if i >= 1 and j >= 1 and key(seq1[i]) == key(seq2[j - 1]) and key(seq1[i - 1]) == key(seq2[j]):
+        if i >= 1 and j >= 1 and spot1 == key(seq2[j - 1]) and key(seq1[i - 1]) == spot2:
             scorer.update(chain(i - 2, j - 2) + [Transposition(at=i - 1)])
 
         if spots_differ:

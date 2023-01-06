@@ -3,8 +3,8 @@ dam_lev
 =======
 
 :Author: Daniel Walker
-:Version: 0.1.1
-:Date: 2022-11-25
+:Version: 0.1.2
+:Date: 2023-01-05
 
 Overview
 ========
